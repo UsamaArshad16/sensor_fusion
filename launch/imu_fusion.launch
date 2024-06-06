@@ -1,0 +1,21 @@
+ <launch>
+ <node pkg="tf" type="static_transform_publisher" name="imu_to_base_link" args="0.04 0 0.13 0 0 0 base_link rehab_imu_link 100" />
+<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+  <remap from="odom" to="mobile_base_controller/odom"/>
+  <remap from="imu_data" to="imu"/>
+  <param name="output_frame" value="odom_combined"/>
+  <param name="base_footprint_frame" value="base_link"/>
+  <param name="freq" value="30.0"/>
+  <param name="sensor_timeout" value="1.0"/>
+  <param name="odom_used" value="true"/>
+  <param name="imu_used" value="true"/>
+  <param name="vo_used" value="false"/>
+  <param name="debug" value="false"/>
+  <param name="self_diagnose" value="false"/>
+
+  <!-- Increase the covariance values for the IMU sensor -->
+  <!-- <param name="imu0_config" value="[true,true,true,   0.01, 0.01, 0.01,   0.01, 0.01, 0.01,   0.01, 0.01, 0.01,   0.01, 0.01, 0.01]"/> -->
+</node>
+
+ </launch>
+
